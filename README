@@ -1,0 +1,9 @@
+ - filter_osm.py - filter a *.osm file by keeping only ways that are tagged according to a condition provided. all nodes are kept and all relations are discarded, independent of the condition.
+   - usage: cat input.osm | ./filter_osm.py "CONDITION" > output.osm
+   - the condition can be one of the following "k=X" (a tag with k=X exists on the way), "v=Y" (a tag with v=Y exists on the way) or a combination of "k=X" and "v=Y" using "and" or "or"
+   - example - filter out all railways in China from the china.osm file: cat china.osm | ./filter_osm.py "k=railway and v=rail" > china_railway.osm
+
+ - filter_osm_orphan_nodes.py - parse a *.osm file and discard all orphan nodes (nodes that don't appear in any way)
+   - usage: ./filter_osm_orphan_nodes.py input.osm > output.osm
+   - this can be used to reduce file size after filtering out ways using filter_osm.py, which does not remove orphan nodes
+   - issue: the input file will be parsed twice, the reason is that the ways appear after the nodes in the file, so to avoid loading all nodes into memory we need to parse the ways first, then the nodes
